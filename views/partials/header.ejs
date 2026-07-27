@@ -26,7 +26,8 @@
   <nav class="navbar">
     <div class="container navbar-inner">
       <a href="/" class="nav-home" aria-label="Home" title="Home">🏠</a>
-      <div class="nav-links">
+      <button type="button" id="nav-toggle" class="nav-toggle-btn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+      <div class="nav-links" id="nav-links">
         <a href="/?category=Budget+Destinations">Destinations</a>
         <a href="/?category=Itineraries">Itineraries</a>
         <a href="/?category=Travel+Tips">Travel Tips</a>
@@ -34,9 +35,16 @@
         <a href="/?category=Local+Food+%26+Culture">Food &amp; Culture <span class="badge badge-hot">Hot</span></a>
         <a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>">About</a>
         <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
+        <div class="nav-actions nav-actions--mobile">
+          <button type="button" id="theme-toggle-mobile" class="icon-btn theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+          <form class="search-form" action="/" method="get">
+            <input type="text" name="q" class="search-input" placeholder="Search posts..." />
+            <button type="submit" class="icon-btn" aria-label="Search" title="Search">🔍</button>
+          </form>
+        </div>
       </div>
-      <div class="nav-actions">
-        <button type="button" id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+      <div class="nav-actions nav-actions--desktop">
+        <button type="button" id="theme-toggle" class="icon-btn theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
         <form class="search-form" action="/" method="get">
           <input type="text" name="q" class="search-input" placeholder="Search posts..." />
           <button type="submit" class="icon-btn" aria-label="Search" title="Search">🔍</button>
