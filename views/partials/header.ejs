@@ -25,9 +25,9 @@
 
   <nav class="navbar">
     <div class="container navbar-inner">
-      <a href="/" class="nav-home" aria-label="Home" title="Home">🏠</a>
       <button type="button" id="nav-toggle" class="nav-toggle-btn" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
       <div class="nav-links" id="nav-links">
+        <a href="/" class="nav-home-link <%= currentPath === '/' ? 'active' : '' %>">🏠 Home</a>
         <a href="/?category=Budget+Destinations">Destinations</a>
         <a href="/?category=Itineraries">Itineraries</a>
         <a href="/?category=Travel+Tips">Travel Tips</a>
