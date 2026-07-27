@@ -120,7 +120,6 @@ h1, h2, h3, h4 {
   gap: 5px;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--color-primary-dark); }
-.nav-actions--mobile { display: none; }
 
 .badge {
   display: inline-block;
@@ -156,14 +155,14 @@ h1, h2, h3, h4 {
   gap: 4px;
 }
 @media (max-width: 900px) {
-  .nav-toggle-btn { display: block; order: 2; }
+  .nav-toggle-btn { display: block; order: 2; margin-left: 0; }
   .nav-home { order: 1; }
-  .nav-actions--desktop { display: none; }
-  .nav-actions--mobile { display: flex; margin-top: 14px; }
-  .navbar-inner { flex-wrap: wrap; align-items: flex-start; }
+  .nav-actions { order: 3; margin-left: auto; }
+  .search-input { width: 100px; }
+  .navbar-inner { flex-wrap: wrap; align-items: center; }
   .nav-links {
     display: none;
-    order: 3;
+    order: 4;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
