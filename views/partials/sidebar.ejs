@@ -1,0 +1,101 @@
+<aside class="sidebar">
+  <!-- Follow Us: decorative only, no real social accounts exist yet -->
+  <div class="widget">
+    <h3 class="widget-title">Follow Us</h3>
+    <div class="follow-us-grid">
+      <a href="#" class="follow-btn follow-btn--facebook"><span class="follow-icon">&#128077;</span> Facebook</a>
+      <a href="#" class="follow-btn follow-btn--twitter"><span class="follow-icon">&#128038;</span> Twitter</a>
+      <a href="#" class="follow-btn follow-btn--youtube"><span class="follow-icon">&#9658;</span> YouTube</a>
+      <a href="#" class="follow-btn follow-btn--instagram"><span class="follow-icon">&#128247;</span> Instagram</a>
+      <a href="#" class="follow-btn follow-btn--pinterest"><span class="follow-icon">&#128204;</span> Pinterest</a>
+    </div>
+  </div>
+
+  <% if (typeof recentPosts !== 'undefined' && typeof popularPosts !== 'undefined') { %>
+  <div class="widget">
+    <div class="sidebar-tabs" role="tablist">
+      <button type="button" class="sidebar-tab active" data-tab="popular">Popular</button>
+      <button type="button" class="sidebar-tab" data-tab="recent">Recent</button>
+      <button type="button" class="sidebar-tab" data-tab="comments">Comments</button>
+    </div>
+    <div class="sidebar-tab-panel" data-panel="popular">
+      <ul class="widget-list recent-posts-list">
+        <% popularPosts.forEach(function(p) { %>
+          <li class="recent-post-item">
+            <a href="/post/<%= p.slug %>" class="recent-post-link">
+              <%- include('thumb', { post: p, size: 'mini' }) %>
+              <span class="recent-post-title"><%= p.title %></span>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+    <div class="sidebar-tab-panel" data-panel="recent" hidden>
+      <ul class="widget-list recent-posts-list">
+        <% recentPosts.forEach(function(p) { %>
+          <li class="recent-post-item">
+            <a href="/post/<%= p.slug %>" class="recent-post-link">
+              <%- include('thumb', { post: p, size: 'mini' }) %>
+              <span class="recent-post-title"><%= p.title %></span>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    </div>
+    <div class="sidebar-tab-panel" data-panel="comments" hidden>
+      <ul class="widget-list comment-list-sidebar">
+        <% if (typeof recentComments !== 'undefined' && recentComments.length > 0) { %>
+          <% recentComments.forEach(function(c) { %>
+            <li class="sidebar-comment-item">
+              <a href="/post/<%= c.postSlug %>#comments">
+                <span class="sidebar-comment-post"><%= c.postTitle %></span>
+                <span class="sidebar-comment-name"><%= c.name %>:</span>
+                <span class="sidebar-comment-snippet"><%= c.message.slice(0, 70) %><%= c.message.length > 70 ? '...' : '' %></span>
+              </a>
+            </li>
+          <% }) %>
+        <% } else { %>
+          <li class="no-comments">No comments yet.</li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+  <% } %>
+
+  <div class="widget">
+    <h3 class="widget-title">Categories</h3>
+    <ul class="widget-list categories-list">
+      <li><a href="/" class="<%= !activeCategory ? 'active' : '' %>">All Posts</a></li>
+      <% categoryCounts.forEach(function(c) { %>
+        <li>
+          <a href="/?category=<%= encodeURIComponent(c.name) %>" class="<%= activeCategory === c.name ? 'active' : '' %>">
+            <%= c.name %> <span class="count">(<%= c.count %>)</span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Recent Posts</h3>
+    <ul class="widget-list recent-posts-list">
+      <% recentPosts.forEach(function(p) { %>
+        <li class="recent-post-item">
+          <a href="/post/<%= p.slug %>" class="recent-post-link">
+            <%- include('thumb', { post: p, size: 'mini' }) %>
+            <span class="recent-post-title"><%= p.title %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </div>
+
+  <div class="widget">
+    <h3 class="widget-title">Main Tags</h3>
+    <div class="tag-cloud">
+      <% categoryCounts.forEach(function(c) { %>
+        <a class="tag-pill" href="/?category=<%= encodeURIComponent(c.name) %>"><%= c.name %></a>
+      <% }) %>
+    </div>
+  </div>
+</aside>
+<script src="/js/sidebar-tabs.js"></script>

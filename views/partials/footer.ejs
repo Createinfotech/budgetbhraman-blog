@@ -1,0 +1,42 @@
+<%
+  const footerRecent = footerRecentPosts;
+  const footerCategories = footerCategoryCounts;
+%>
+  </main>
+  <footer class="site-footer">
+    <div class="container footer-columns">
+      <div class="footer-col">
+        <h4 class="footer-heading">BudgetBhraman</h4>
+        <p class="footer-desc">Real itineraries, real prices, real experiences — budget travel guides for exploring India without draining your savings.</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Recent Posts</h4>
+        <ul class="footer-list">
+          <% footerRecent.forEach(function(p) { %>
+            <li><a href="/post/<%= p.slug %>"><%= p.title %></a></li>
+          <% }) %>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Categories</h4>
+        <ul class="footer-list">
+          <% footerCategories.forEach(function(c) { %>
+            <li><a href="/?category=<%= encodeURIComponent(c.name) %>"><%= c.name %> (<%= c.count %>)</a></li>
+          <% }) %>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; <%= new Date().getFullYear() %> BudgetBhraman. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="/js/theme.js"></script>
+</body>
+</html>

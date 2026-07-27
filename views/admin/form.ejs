@@ -1,0 +1,44 @@
+<%- include('partials/adminHeader') %>
+
+  <div class="admin-page-header">
+    <h1><%= title %></h1>
+    <a href="/admin" class="btn btn-secondary">&larr; Back to Dashboard</a>
+  </div>
+
+  <form method="POST" action="<%= formAction %>" class="admin-form admin-card">
+    <label>Title
+      <input type="text" name="title" id="title-input" value="<%= post.title %>" required />
+    </label>
+    <label>Slug
+      <input type="text" name="slug" id="slug-input" value="<%= post.slug %>" />
+    </label>
+    <label>Category
+      <select name="category">
+        <% categories.forEach(function(cat) { %>
+          <option value="<%= cat %>" <%= post.category === cat ? 'selected' : '' %>><%= cat %></option>
+        <% }) %>
+      </select>
+    </label>
+    <label>Date
+      <input type="date" name="date" value="<%= post.date %>" />
+    </label>
+    <label>Excerpt
+      <textarea name="excerpt" rows="2"><%= post.excerpt %></textarea>
+    </label>
+    <label>Body (markdown-ish: # headings, **bold**, - lists, | tables |)
+      <textarea name="body" rows="18" required><%= post.body %></textarea>
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" name="published" <%= post.published ? 'checked' : '' %> />
+      Published
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" name="featured" <%= post.featured ? 'checked' : '' %> />
+      Show in Top News (homepage top)
+    </label>
+    <button type="submit" class="btn"><%= isEdit ? 'Save Changes' : 'Create Post' %></button>
+  </form>
+
+<%- include('partials/adminFooter') %>
+
+<script src="/js/admin.js"></script>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | BudgetBhraman Admin</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="admin-body">
+  <div class="admin-login-wrap">
+    <form class="admin-login-card" method="POST" action="/admin/login">
+      <div class="admin-login-brand">
+        <span class="brand-mark">🧭</span>
+        <span class="brand-text">Budget<span class="brand-accent">Bhraman</span></span>
+      </div>
+      <h1>Admin Login</h1>
+      <% if (error) { %><p class="form-error"><%= error %></p><% } %>
+      <label>Username
+        <input type="text" name="username" autocomplete="username" required />
+      </label>
+      <label>Password
+        <input type="password" name="password" autocomplete="current-password" required />
+      </label>
+      <button type="submit" class="btn">Log In</button>
+      <p class="admin-back"><a href="/">&larr; Back to site</a></p>
+    </form>
+  </div>
+</body>
+</html>

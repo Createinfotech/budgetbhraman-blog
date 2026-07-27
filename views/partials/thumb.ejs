@@ -1,0 +1,7 @@
+<%
+  const meta = getCategoryMeta(post.category);
+  const thumbSize = typeof size !== 'undefined' ? size : 'card';
+  const imgUrl = getHeroImage(post);
+%>
+<div class="thumb thumb--<%= meta.slug %> thumb--<%= thumbSize %>" style="background-image:url('<%= imgUrl %>')">
+</div>

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | BudgetBhraman</title>
+  <meta name="description" content="Budget travel guides, itineraries and tips for exploring India without overspending." />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script>
+    (function () {
+      var saved = localStorage.getItem('bb-theme');
+      if (saved === 'dark') document.documentElement.classList.add('dark-mode');
+    })();
+  </script>
+</head>
+<body>
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <a href="/" class="brand">
+        <span class="brand-mark">🧭</span>
+        <span class="brand-text">Budget<span class="brand-accent">Bhraman</span></span>
+      </a>
+    </div>
+  </div>
+
+  <nav class="navbar">
+    <div class="container navbar-inner">
+      <a href="/" class="nav-home" aria-label="Home" title="Home">🏠</a>
+      <div class="nav-links">
+        <a href="/?category=Budget+Destinations">Destinations</a>
+        <a href="/?category=Itineraries">Itineraries</a>
+        <a href="/?category=Travel+Tips">Travel Tips</a>
+        <a href="/?category=Packing+Guides">Packing Guides <span class="badge badge-new">New</span></a>
+        <a href="/?category=Local+Food+%26+Culture">Food &amp; Culture <span class="badge badge-hot">Hot</span></a>
+        <a href="/about" class="<%= currentPath === '/about' ? 'active' : '' %>">About</a>
+        <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button type="button" id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
+        <form class="search-form" action="/" method="get">
+          <input type="text" name="q" class="search-input" placeholder="Search posts..." />
+          <button type="submit" class="icon-btn" aria-label="Search" title="Search">🔍</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <main>

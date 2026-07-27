@@ -1,0 +1,44 @@
+<%
+  // featuredPosts: array of up to 5 posts, most-recent first.
+  const big = featuredPosts[0];
+  const smalls = featuredPosts.slice(1, 5);
+%>
+<% if (big) { %>
+<section class="top-news">
+  <div class="container">
+    <div class="top-news-bar">
+      <span class="top-news-pill">Top News</span>
+      <a class="top-news-headline" href="/post/<%= big.slug %>"><%= big.title %></a>
+      <div class="top-news-nav">
+        <button type="button" class="top-news-arrow" aria-label="Previous">&#10094;</button>
+        <button type="button" class="top-news-arrow" aria-label="Next">&#10095;</button>
+      </div>
+    </div>
+    <div class="top-news-grid">
+      <a class="news-card news-card--big" href="/post/<%= big.slug %>" style="--news-bg: url('<%= getHeroImage(big) %>')">
+        <span class="news-card-badge" style="background: <%= getCategoryMeta(big.category).color %>"><%= big.category %></span>
+        <div class="news-card-overlay">
+          <h3 class="news-card-title"><%= big.title %></h3>
+          <div class="news-card-meta">
+            <span class="news-card-meta-item"><span class="news-card-icon">&#128100;</span> BudgetBhraman</span>
+            <span class="news-card-meta-item"><span class="news-card-icon">&#128337;</span> <%= big.date %></span>
+          </div>
+        </div>
+      </a>
+      <div class="news-card-small-grid">
+        <% smalls.forEach(function(p) { %>
+          <a class="news-card news-card--small" href="/post/<%= p.slug %>" style="--news-bg: url('<%= getHeroImage(p) %>')">
+            <span class="news-card-badge" style="background: <%= getCategoryMeta(p.category).color %>"><%= p.category %></span>
+            <div class="news-card-overlay">
+              <h3 class="news-card-title"><%= p.title %></h3>
+              <div class="news-card-meta">
+                <span class="news-card-meta-item"><span class="news-card-icon">&#128337;</span> <%= p.date %></span>
+              </div>
+            </div>
+          </a>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+<% } %>

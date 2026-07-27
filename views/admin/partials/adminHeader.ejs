@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %> | BudgetBhraman Admin</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="admin-body">
+  <div class="admin-topbar-bar">
+    <div class="admin-topbar-inner">
+      <a href="/admin" class="admin-brand">
+        <span class="brand-mark">🧭</span>
+        <span class="brand-text">Budget<span class="brand-accent">Bhraman</span></span>
+        <span class="admin-brand-tag">Admin</span>
+      </a>
+      <nav class="admin-topbar-nav">
+        <a href="/admin">Dashboard</a>
+        <a href="/admin/categories">Categories</a>
+        <a href="/" target="_blank" rel="noopener">View Site &#8599;</a>
+        <form method="POST" action="/admin/logout" class="inline-form">
+          <button type="submit" class="admin-topbar-logout">Logout</button>
+        </form>
+      </nav>
+    </div>
+  </div>
+  <div class="admin-shell">

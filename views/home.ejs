@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<section class="hero">
+  <div class="container">
+    <h1>Budget Travel in India, Done Right</h1>
+    <p class="tagline">Real itineraries, real prices, real experiences — exploring India without draining your savings.</p>
+  </div>
+</section>
+
+<% if (!activeCategory && !searchQuery) { %>
+  <%- include('partials/topNews', { featuredPosts: featuredPosts }) %>
+<% } %>
+
+<section class="container layout">
+  <div class="main-col">
+    <% if (!activeCategory && !searchQuery) { %>
+      <% if (categorySections.length > 0) { %>
+        <%- include('partials/categoryShowcase', { section: categorySections[0], compact: false }) %>
+      <% } %>
+      <div class="cat-showcase-pair-grid">
+        <% categorySections.slice(1).forEach(function(section) { %>
+          <%- include('partials/categoryShowcase', { section: section, compact: true }) %>
+        <% }) %>
+      </div>
+    <% } %>
+    <% if (searchQuery) { %>
+      <h2 class="section-title">Search results for "<%= searchQuery %>"</h2>
+    <% } else if (activeCategory) { %>
+      <h2 class="section-title">Category: <%= activeCategory %></h2>
+    <% } %>
+    <div class="post-grid">
+      <% posts.forEach(function(post) { %>
+        <a class="post-card" href="/post/<%= post.slug %>">
+          <%- include('partials/thumb', { post: post, size: 'card' }) %>
+          <div class="post-card-body">
+            <div class="post-card-category"><%= post.category %></div>
+            <h2 class="post-card-title"><%= post.title %></h2>
+            <p class="post-card-excerpt"><%= post.excerpt %></p>
+            <div class="post-card-date"><%= post.date %></div>
+          </div>
+        </a>
+      <% }) %>
+      <% if (posts.length === 0) { %>
+        <p>No posts found in this category yet.</p>
+      <% } %>
+    </div>
+  </div>
+  <%- include('partials/sidebar', { categoryCounts: categoryCounts, recentPosts: recentPosts, activeCategory: activeCategory }) %>
+</section>
+
+<%- include('partials/footer') %>

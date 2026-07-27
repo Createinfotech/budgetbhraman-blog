@@ -1,0 +1,40 @@
+<%
+  // section: { name, color, posts } — posts newest-first, already sliced (~5) by the route.
+  const isCompact = typeof compact !== 'undefined' && compact;
+  const featured = section.posts[0];
+  const rest = section.posts.slice(1, isCompact ? 3 : 5);
+%>
+<% if (featured) { %>
+<section class="cat-showcase<%= isCompact ? ' cat-showcase--compact' : '' %>">
+  <div class="cat-showcase-header" style="--cat-color: <%= section.color %>">
+    <span class="cat-showcase-pill" style="background: <%= section.color %>"><%= section.name %></span>
+    <a class="cat-showcase-viewall" href="/?category=<%= encodeURIComponent(section.name) %>">View all &rarr;</a>
+  </div>
+  <div class="cat-showcase-body">
+    <a class="cat-showcase-featured" href="/post/<%= featured.slug %>" style="--news-bg: url('<%= getHeroImage(featured) %>')">
+      <div class="cat-showcase-featured-overlay">
+        <h3 class="cat-showcase-featured-title"><%= featured.title %></h3>
+        <div class="cat-showcase-featured-meta">
+          <span><span class="news-card-icon">&#128100;</span> BudgetBhraman</span>
+          <span><span class="news-card-icon">&#128337;</span> <%= featured.date %></span>
+        </div>
+      </div>
+    </a>
+    <% if (rest.length > 0) { %>
+      <ul class="cat-showcase-list">
+        <% rest.forEach(function(p) { %>
+          <li class="cat-showcase-list-item">
+            <a href="/post/<%= p.slug %>" class="cat-showcase-list-link">
+              <%- include('thumb', { post: p, size: 'mini' }) %>
+              <span class="cat-showcase-list-text">
+                <span class="cat-showcase-list-title"><%= p.title %></span>
+                <span class="cat-showcase-list-date"><%= p.date %></span>
+              </span>
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+</section>
+<% } %>

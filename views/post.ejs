@@ -1,0 +1,52 @@
+<%- include('partials/header') %>
+
+<section class="container layout">
+  <article class="main-col post-page">
+    <%- include('partials/thumb', { post: post, size: 'hero' }) %>
+    <h1><%= post.title %></h1>
+    <div class="post-meta">
+      <span class="post-card-category"><%= post.category %></span>
+      <span class="post-date"><%= post.date %></span>
+    </div>
+    <div class="post-body">
+      <%- bodyHtml %>
+    </div>
+    <div class="post-footer-nav">
+      <a href="/">&larr; Back to all posts</a>
+    </div>
+
+    <hr class="divider" />
+
+    <section class="comments-section" id="comments">
+      <h2>Comments (<%= comments.length %>)</h2>
+      <% if (comments.length === 0) { %>
+        <p class="no-comments">No comments yet — be the first to share your thoughts.</p>
+      <% } %>
+      <ul class="comment-list">
+        <% comments.forEach(function(c) { %>
+          <li class="comment-item">
+            <div class="comment-header">
+              <span class="comment-name"><%= c.name %></span>
+              <span class="comment-date"><%= new Date(c.created_at).toLocaleDateString() %></span>
+            </div>
+            <p class="comment-message"><%= c.message %></p>
+          </li>
+        <% }) %>
+      </ul>
+
+      <form class="comment-form" method="post" action="/post/<%= post.slug %>/comment#comments">
+        <h3>Leave a Comment</h3>
+        <label>Name
+          <input type="text" name="name" maxlength="80" placeholder="Your name" required />
+        </label>
+        <label>Comment
+          <textarea name="message" rows="4" maxlength="2000" placeholder="Say something..." required></textarea>
+        </label>
+        <button type="submit" class="btn">Submit Comment</button>
+      </form>
+    </section>
+  </article>
+  <%- include('partials/sidebar', { categoryCounts: categoryCounts, recentPosts: recentPosts, activeCategory: activeCategory }) %>
+</section>
+
+<%- include('partials/footer') %>
