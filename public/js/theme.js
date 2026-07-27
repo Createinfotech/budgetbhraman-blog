@@ -32,3 +32,22 @@
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 })();
+
+(function () {
+  var toggle = document.getElementById('search-toggle');
+  var drawer = document.getElementById('search-drawer');
+  if (!toggle || !drawer) return;
+  var input = drawer.querySelector('.search-drawer-input');
+
+  function open() {
+    drawer.classList.add('search-drawer--open');
+    toggle.setAttribute('aria-expanded', 'true');
+    setTimeout(function () { input.focus(); }, 200);
+  }
+  toggle.addEventListener('click', function () {
+    var isOpen = drawer.classList.toggle('search-drawer--open');
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (isOpen) setTimeout(function () { input.focus(); }, 200);
+  });
+  if (input && input.value) open();
+})();

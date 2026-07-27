@@ -32,11 +32,14 @@
         <a href="/contact" class="<%= currentPath === '/contact' ? 'active' : '' %>">Contact</a>
       </div>
       <div class="nav-actions">
-        <form class="search-form" action="/" method="get">
-          <input type="text" name="q" class="search-input" placeholder="Search posts..." />
-          <button type="submit" class="icon-btn" aria-label="Search" title="Search">🔍</button>
-        </form>
+        <button type="button" id="search-toggle" class="icon-btn" aria-label="Toggle search" aria-expanded="false" title="Search">🔍</button>
       </div>
+    </div>
+    <div class="search-drawer" id="search-drawer">
+      <form class="container search-drawer-form" action="/" method="get">
+        <input type="text" name="q" class="search-input search-drawer-input" placeholder="Search posts..." autocomplete="off" />
+        <button type="submit" class="icon-btn" aria-label="Search" title="Search">🔍</button>
+      </form>
     </div>
   </nav>
 

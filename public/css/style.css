@@ -130,7 +130,6 @@ h1, h2, h3, h4 {
 @media (max-width: 900px) {
   .nav-toggle-btn { display: block; order: 2; margin-left: auto; }
   .nav-actions { order: 3; }
-  .search-input { width: 100px; }
   .navbar-inner { flex-wrap: wrap; align-items: center; }
   .nav-links {
     display: none;
@@ -158,6 +157,25 @@ h1, h2, h3, h4 {
   color: #fff;
 }
 .search-input::placeholder { color: #a89f92; }
+
+/* Search drawer: slides down from the header when the search icon is clicked */
+.search-drawer {
+  max-height: 0;
+  overflow: hidden;
+  background: #211c16;
+  transition: max-height 0.25s ease;
+}
+.search-drawer--open { max-height: 70px; }
+.search-drawer-form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+}
+.search-drawer-input {
+  flex: 1;
+  width: auto;
+}
 
 /* Dark mode */
 html.dark-mode {
