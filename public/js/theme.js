@@ -2,7 +2,16 @@
   var btns = document.querySelectorAll('.theme-toggle-btn');
   if (!btns.length) return;
   function setIcon(dark) {
-    btns.forEach(function (b) { b.textContent = dark ? '☀️' : '🌙'; });
+    btns.forEach(function (b) {
+      var iconEl = b.querySelector('.darkmode-widget-icon');
+      var labelEl = b.querySelector('.darkmode-widget-label');
+      if (iconEl) {
+        iconEl.textContent = dark ? '☀️' : '🌙';
+        if (labelEl) labelEl.textContent = dark ? 'Light Mode' : 'Dark Mode';
+      } else {
+        b.textContent = dark ? '☀️' : '🌙';
+      }
+    });
   }
   btns.forEach(function (btn) {
     btn.addEventListener('click', function () {
