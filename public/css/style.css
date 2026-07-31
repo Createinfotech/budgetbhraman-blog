@@ -829,6 +829,13 @@ html.dark-mode .status-badge--featured { background: #3a2414; color: #f0a468; }
   color: var(--color-text);
 }
 .checkbox-label { flex-direction: row !important; align-items: center; gap: 8px !important; }
+.admin-image-preview {
+  max-width: 320px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+.admin-image-preview img { display: block; width: 100%; height: auto; }
 
 @media (max-width: 700px) {
   .admin-topbar-inner { flex-wrap: wrap; }

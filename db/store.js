@@ -33,6 +33,7 @@ function trySqlite(moduleName) {
       body TEXT NOT NULL,
       published INTEGER NOT NULL DEFAULT 1,
       featured INTEGER NOT NULL DEFAULT 0,
+      image_url TEXT,
       date TEXT NOT NULL
     );
     CREATE TABLE IF NOT EXISTS pages (
@@ -55,6 +56,11 @@ function trySqlite(moduleName) {
 
   try {
     db.exec('ALTER TABLE posts ADD COLUMN featured INTEGER NOT NULL DEFAULT 0');
+  } catch (e) {
+    // column already exists — fine
+  }
+  try {
+    db.exec('ALTER TABLE posts ADD COLUMN image_url TEXT');
   } catch (e) {
     // column already exists — fine
   }
@@ -127,20 +133,20 @@ function trySqlite(moduleName) {
     },
     createPost(post) {
       const stmt = db.prepare(
-        `INSERT INTO posts (slug, title, category, excerpt, body, published, featured, date)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO posts (slug, title, category, excerpt, body, published, featured, image_url, date)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
       );
       const info = stmt.run(
         post.slug, post.title, post.category, post.excerpt, post.body,
-        post.published ? 1 : 0, post.featured ? 1 : 0, post.date
+        post.published ? 1 : 0, post.featured ? 1 : 0, post.image_url || null, post.date
       );
       const id = info.lastInsertRowid !== undefined ? info.lastInsertRowid : info.lastInsertRowId;
       return this.getPostById(id);
     },
     updatePost(id, post) {
       db.prepare(
-        `UPDATE posts SET slug=?, title=?, category=?, excerpt=?, body=?, published=?, featured=?, date=? WHERE id=?`
-      ).run(post.slug, post.title, post.category, post.excerpt, post.body, post.published ? 1 : 0, post.featured ? 1 : 0, post.date, Number(id));
+        `UPDATE posts SET slug=?, title=?, category=?, excerpt=?, body=?, published=?, featured=?, image_url=?, date=? WHERE id=?`
+      ).run(post.slug, post.title, post.category, post.excerpt, post.body, post.published ? 1 : 0, post.featured ? 1 : 0, post.image_url || null, post.date, Number(id));
       return this.getPostById(id);
     },
     deletePost(id) {

@@ -25,6 +25,12 @@
     <label>Excerpt
       <textarea name="excerpt" rows="2"><%= post.excerpt %></textarea>
     </label>
+    <label>Featured Image URL (optional — paste a link to an image; leave blank to auto-use a category photo)
+      <input type="url" name="image_url" value="<%= post.image_url || '' %>" placeholder="https://example.com/photo.jpg" />
+    </label>
+    <% if (post.image_url) { %>
+      <div class="admin-image-preview"><img src="<%= post.image_url %>" alt="Preview" /></div>
+    <% } %>
     <label>Body (markdown-ish: # headings, **bold**, - lists, | tables |)
       <textarea name="body" rows="18" required><%= post.body %></textarea>
     </label>
