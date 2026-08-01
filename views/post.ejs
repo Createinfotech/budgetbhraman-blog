@@ -11,6 +11,15 @@
     <div class="post-body">
       <%- bodyHtml %>
     </div>
+    <% if (post.gallery_images && post.gallery_images.trim()) { %>
+      <div class="post-gallery">
+        <% post.gallery_images.split('\n').filter(function(u){ return u.trim(); }).forEach(function(url) { %>
+          <a href="<%= url.trim() %>" target="_blank" rel="noopener" class="post-gallery-item">
+            <img src="<%= url.trim() %>" alt="<%= post.title %> photo" loading="lazy" />
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
     <div class="post-footer-nav">
       <a href="/">&larr; Back to all posts</a>
     </div>

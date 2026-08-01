@@ -64,6 +64,11 @@ function trySqlite(moduleName) {
   } catch (e) {
     // column already exists — fine
   }
+  try {
+    db.exec('ALTER TABLE posts ADD COLUMN gallery_images TEXT');
+  } catch (e) {
+    // column already exists — fine
+  }
 
   return {
     name: moduleName,
@@ -133,20 +138,20 @@ function trySqlite(moduleName) {
     },
     createPost(post) {
       const stmt = db.prepare(
-        `INSERT INTO posts (slug, title, category, excerpt, body, published, featured, image_url, date)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        `INSERT INTO posts (slug, title, category, excerpt, body, published, featured, image_url, gallery_images, date)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`
       );
       const info = stmt.run(
         post.slug, post.title, post.category, post.excerpt, post.body,
-        post.published ? 1 : 0, post.featured ? 1 : 0, post.image_url || null, post.date
+        post.published ? 1 : 0, post.featured ? 1 : 0, post.image_url || null, post.gallery_images || null, post.date
       );
       const id = info.lastInsertRowid !== undefined ? info.lastInsertRowid : info.lastInsertRowId;
       return this.getPostById(id);
     },
     updatePost(id, post) {
       db.prepare(
-        `UPDATE posts SET slug=?, title=?, category=?, excerpt=?, body=?, published=?, featured=?, image_url=?, date=? WHERE id=?`
-      ).run(post.slug, post.title, post.category, post.excerpt, post.body, post.published ? 1 : 0, post.featured ? 1 : 0, post.image_url || null, post.date, Number(id));
+        `UPDATE posts SET slug=?, title=?, category=?, excerpt=?, body=?, published=?, featured=?, image_url=?, gallery_images=?, date=? WHERE id=?`
+      ).run(post.slug, post.title, post.category, post.excerpt, post.body, post.published ? 1 : 0, post.featured ? 1 : 0, post.image_url || null, post.gallery_images || null, post.date, Number(id));
       return this.getPostById(id);
     },
     deletePost(id) {

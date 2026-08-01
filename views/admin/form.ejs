@@ -31,6 +31,16 @@
     <% if (post.image_url) { %>
       <div class="admin-image-preview"><img src="<%= post.image_url %>" alt="Preview" /></div>
     <% } %>
+    <label>Additional Gallery Images (optional — one image URL per line, shown in the post body)
+      <textarea name="gallery_images" rows="4" placeholder="https://example.com/photo1.jpg&#10;https://example.com/photo2.jpg"><%= post.gallery_images || '' %></textarea>
+    </label>
+    <% if (post.gallery_images) { %>
+      <div class="admin-gallery-preview">
+        <% post.gallery_images.split('\n').filter(function(u){ return u.trim(); }).forEach(function(url) { %>
+          <img src="<%= url.trim() %>" alt="Gallery preview" />
+        <% }) %>
+      </div>
+    <% } %>
     <label>Body (markdown-ish: # headings, **bold**, - lists, | tables |)
       <textarea name="body" rows="18" required><%= post.body %></textarea>
     </label>

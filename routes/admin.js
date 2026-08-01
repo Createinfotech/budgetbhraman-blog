@@ -15,6 +15,14 @@ function requireAuth(req, res, next) {
   return res.redirect('/admin/login');
 }
 
+function normalizeGalleryInput(raw) {
+  return (raw || '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .join('\n');
+}
+
 function slugify(str) {
   return str
     .toLowerCase()
@@ -57,7 +65,7 @@ router.get('/posts/new', requireAuth, (req, res) => {
   const categories = store.getAllCategories();
   res.render('admin/form', {
     title: 'New Post',
-    post: { title: '', slug: '', category: categories[0] || '', excerpt: '', body: '', published: true, featured: false, image_url: '', date: new Date().toISOString().slice(0, 10) },
+    post: { title: '', slug: '', category: categories[0] || '', excerpt: '', body: '', published: true, featured: false, image_url: '', gallery_images: '', date: new Date().toISOString().slice(0, 10) },
     categories,
     formAction: '/admin/posts/new',
     isEdit: false,
@@ -65,7 +73,7 @@ router.get('/posts/new', requireAuth, (req, res) => {
 });
 
 router.post('/posts/new', requireAuth, (req, res) => {
-  const { title, slug, category, excerpt, body, published, featured, image_url, date } = req.body;
+  const { title, slug, category, excerpt, body, published, featured, image_url, gallery_images, date } = req.body;
   const finalSlug = (slug && slug.trim()) ? slugify(slug) : slugify(title);
   store.createPost({
     title: title.trim(),
@@ -76,6 +84,7 @@ router.post('/posts/new', requireAuth, (req, res) => {
     published: !!published,
     featured: !!featured,
     image_url: (image_url || '').trim(),
+    gallery_images: normalizeGalleryInput(gallery_images),
     date: date || new Date().toISOString().slice(0, 10),
   });
   res.redirect('/admin');
@@ -94,7 +103,7 @@ router.get('/posts/:id/edit', requireAuth, (req, res) => {
 });
 
 router.post('/posts/:id/edit', requireAuth, (req, res) => {
-  const { title, slug, category, excerpt, body, published, featured, image_url, date } = req.body;
+  const { title, slug, category, excerpt, body, published, featured, image_url, gallery_images, date } = req.body;
   const finalSlug = (slug && slug.trim()) ? slugify(slug) : slugify(title);
   store.updatePost(req.params.id, {
     title: title.trim(),
@@ -105,6 +114,7 @@ router.post('/posts/:id/edit', requireAuth, (req, res) => {
     published: !!published,
     featured: !!featured,
     image_url: (image_url || '').trim(),
+    gallery_images: normalizeGalleryInput(gallery_images),
     date: date || new Date().toISOString().slice(0, 10),
   });
   res.redirect('/admin');
